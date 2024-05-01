@@ -25,7 +25,7 @@ X = adult_data.drop('income', axis=1)  # features
 y = adult_data['income']  # target
 
 # Split the Data into Training and Testing Sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=74)
 # random_state to insure the outputs are the same at every function call
 
 # Train the Naive Bayes Classifier
