@@ -2,6 +2,8 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Load and Preprocess the Data
 url = "https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data"
@@ -38,6 +40,17 @@ print("\nAccuracy:", accuracy, "\n")
 conf_matrix = confusion_matrix(y_test, y_pred)
 tn, fp, fn, tp = conf_matrix.ravel()
 
+# Confusion matrix
+plt.figure(figsize=(8, 6))
+sns.set(font_scale=1.4)
+sns.heatmap([[tn, fp], [fn, tp]], annot=True, fmt='g', cmap='Blues',
+            xticklabels=['Predicted Negative', 'Predicted Positive'],
+            yticklabels=['Actual Negative', 'Actual Positive'])
+plt.xlabel('Predicted Label')
+plt.ylabel('True Label')
+plt.title('Confusion Matrix')
+plt.show()
+
 # Compute Sensitivity (True Positive Rate)
 sensitivity = tp / (tp + fn)
 
@@ -50,6 +63,7 @@ print("Specificity (True Negative Rate):", specificity, "\n")
 # Compute the posterior probability of making over 50K a year
 posterior_probs = nb_classifier.predict_proba(X_test)
 positive_class_prob = posterior_probs[:, 1]  # Probability of the positive class
+
 
 # Assuming the positive class corresponds to making over 50K a year
 mean_positive_prob = positive_class_prob.mean()
